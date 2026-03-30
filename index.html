@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bandon Fish Market | Welcome Aboard</title>
+  <meta name="description" content="Traditional Fish & Chips on the Southern Oregon Coast. Fresh seafood, chowder, and waterfront favorites in Old Town Bandon." />
+  <style>
+    :root{
+      --bg:#061018;
+      --bg-soft:#0b1822;
+      --panel:rgba(255,255,255,.07);
+      --panel-2:rgba(255,255,255,.11);
+      --line:rgba(255,255,255,.11);
+      --text:#f5fbff;
+      --muted:#b7c8d3;
+      --accent:#7ce0ff;
+      --accent-2:#2fb7e4;
+      --warm:#ffd78e;
+      --shadow:0 24px 56px rgba(0,0,0,.34);
+      --radius:30px;
+      --max:1180px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Inter, Arial, Helvetica, sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(124,224,255,.16), transparent 24%),
+        radial-gradient(circle at top right, rgba(47,183,228,.12), transparent 20%),
+        linear-gradient(180deg, #051019 0%, #08141d 28%, #0a1721 100%);
+      overflow-x:hidden;
+    }
+    a{color:inherit;text-decoration:none}
+    img{display:block;max-width:100%}
+
+    .shell{width:min(calc(100% - 24px), var(--max));margin:0 auto}
+
+    .topbar{
+      position:sticky;top:0;z-index:100;
+      background:rgba(5,16,25,.78);
+      backdrop-filter:blur(14px);
+      border-bottom:1px solid rgba(255,255,255,.08);
+    }
+    .topbar-inner{
+      display:flex;align-items:center;justify-content:space-between;
+      gap:18px;padding:14px 0;
+    }
+    .brand{display:flex;align-items:center;gap:12px;min-width:0}
+    .brand-logo{
+      width:48px;height:48px;border-radius:14px;overflow:hidden;
+      border:1px solid rgba(255,255,255,.14);background:#0d2130;
+      box-shadow:0 10px 24px rgba(0,0,0,.22);flex:0 0 auto;
+    }
+    .brand-logo img{width:100%;height:100%;object-fit:cover}
+    .eyebrow{
+      font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+      color:var(--accent);margin-bottom:4px
+    }
+    .brand-title{
+      font-size:15px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis
+    }
+    .nav{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}
+    .nav a{
+      font-size:14px;color:var(--muted);padding:10px 12px;border-radius:12px;transition:.2s ease
+    }
+    .nav a:hover{color:var(--text);background:rgba(255,255,255,.06)}
+
+    .hero{padding:40px 0 24px}
+    .hero-grid{
+      display:grid;grid-template-columns:1.04fr .96fr;gap:22px;align-items:stretch
+    }
+    .hero-copy,.hero-media,.card{
+      background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.05));
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:32px;box-shadow:var(--shadow);overflow:hidden;
+    }
+    .hero-copy{padding:32px;position:relative}
+    .chip{
+      display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;
+      border:1px solid rgba(124,224,255,.22);background:rgba(124,224,255,.08);
+      color:var(--accent);font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
+      margin-bottom:16px
+    }
+    h1{
+      margin:0;font-size:clamp(38px, 5vw, 70px);line-height:.93;letter-spacing:-.05em
+    }
+    .hero-sub{
+      margin:18px 0 0;font-size:17px;line-height:1.72;color:var(--muted);max-width:58ch
+    }
+    .hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+    .btn{
+      min-height:52px;padding:0 18px;border-radius:16px;display:inline-flex;align-items:center;justify-content:center;
+      font-size:15px;font-weight:800;transition:.2s ease;cursor:pointer
+    }
+    .btn-primary{
+      background:linear-gradient(135deg, var(--accent), var(--accent-2));
+      color:#04202a;box-shadow:0 14px 28px rgba(124,224,255,.18)
+    }
+    .btn-primary:hover{transform:translateY(-1px)}
+    .btn-secondary{
+      background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.10);color:var(--text)
+    }
+    .btn-secondary:hover{background:rgba(255,255,255,.1)}
+    .hero-stats{
+      display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:24px
+    }
+    .mini{
+      padding:16px;border-radius:18px;background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.08)
+    }
+    .mini strong{display:block;font-size:18px;margin-bottom:6px}
+    .mini span{display:block;font-size:13px;color:var(--muted);line-height:1.45}
+
+    .hero-media{
+      position:relative;min-height:560px;
+      background:
+        linear-gradient(180deg, rgba(0,0,0,.08), rgba(0,0,0,.38)),
+        url("download.jfif") center/cover no-repeat;
+    }
+    .hero-media::after{
+      content:"";position:absolute;inset:0;
+      background:linear-gradient(180deg, rgba(5,16,25,0) 14%, rgba(5,16,25,.88) 100%);
+    }
+    .hero-overlay{
+      position:absolute;left:18px;right:18px;bottom:18px;z-index:2;display:grid;gap:12px
+    }
+    .overlay-card{
+      background:rgba(7,19,27,.76);border:1px solid rgba(255,255,255,.10);
+      backdrop-filter:blur(10px);border-radius:24px;padding:18px 20px
+    }
+    .overlay-card h3{margin:0 0 8px;font-size:20px;letter-spacing:-.02em}
+    .overlay-card p{margin:0;color:var(--muted);line-height:1.58;font-size:14px}
+
+    .section{padding:18px 0 10px}
+    .section-head{
+      display:flex;justify-content:space-between;align-items:end;gap:18px;margin-bottom:18px
+    }
+    .section-head h2{
+      margin:0;font-size:clamp(28px, 4vw, 42px);letter-spacing:-.04em
+    }
+    .section-head p{margin:0;max-width:54ch;color:var(--muted);line-height:1.66}
+
+    .card-pad{padding:26px}
+    .card h3{margin:0 0 12px;font-size:22px;letter-spacing:-.02em}
+    .card p{margin:0;color:var(--muted);line-height:1.68;font-size:15px}
+
+    .two-col,.feature-grid,.gallery-grid,.visit-grid,.split-grid,.closeup-strip{
+      display:grid;gap:18px
+    }
+    .two-col{grid-template-columns:1.02fr .98fr}
+    .feature-grid{grid-template-columns:repeat(3,1fr)}
+    .gallery-grid{grid-template-columns:1.15fr .85fr}
+    .visit-grid{grid-template-columns:.92fr 1.08fr}
+    .split-grid,.closeup-strip{grid-template-columns:1fr 1fr}
+
+    .list{list-style:none;padding:0;margin:14px 0 0;display:grid;gap:10px}
+    .list li{
+      display:flex;align-items:flex-start;gap:10px;color:var(--muted);line-height:1.56;font-size:15px
+    }
+    .dot{
+      width:8px;height:8px;border-radius:999px;background:var(--accent);
+      margin-top:8px;flex:0 0 auto;box-shadow:0 0 0 6px rgba(124,224,255,.1)
+    }
+
+    .media-card{
+      min-height:340px;position:relative;
+      background:
+        linear-gradient(180deg, rgba(0,0,0,.08), rgba(0,0,0,.32)),
+        url("download%20%287%29.jfif") center/cover no-repeat;
+    }
+    .media-label{
+      position:absolute;top:16px;left:16px;z-index:2;padding:8px 12px;border-radius:999px;
+      background:rgba(7,19,27,.8);border:1px solid rgba(255,255,255,.1);
+      color:var(--warm);font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase
+    }
+
+    .signature{
+      display:grid;grid-template-columns:185px 1fr;gap:18px;align-items:stretch
+    }
+    .signature-image{
+      min-height:220px;background:url("download%20%286%29.jfif") center/cover no-repeat;
+      border-right:1px solid rgba(255,255,255,.08)
+    }
+    .signature-copy{
+      padding:24px 24px 24px 0;display:flex;flex-direction:column;justify-content:center
+    }
+    .tag-row{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:14px}
+    .tag{
+      display:inline-flex;align-items:center;padding:8px 12px;border-radius:999px;
+      background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);
+      font-size:12px;font-weight:800;letter-spacing:.05em;text-transform:uppercase
+    }
+
+    .feature{padding:24px;min-height:100%}
+    .icon{
+      width:50px;height:50px;border-radius:16px;display:grid;place-items:center;
+      margin-bottom:14px;font-size:22px;background:rgba(124,224,255,.08);
+      border:1px solid rgba(124,224,255,.14);box-shadow:0 8px 20px rgba(124,224,255,.1)
+    }
+
+    .gallery-main{
+      min-height:480px;position:relative;
+      background:
+        linear-gradient(180deg, rgba(0,0,0,.08), rgba(0,0,0,.34)),
+        url("download%20%283%29.jfif") center/cover no-repeat;
+    }
+    .gallery-side{display:grid;gap:18px}
+    .gallery-small{min-height:231px;position:relative}
+    .gallery-small.one{
+      background:
+        linear-gradient(180deg, rgba(0,0,0,.08), rgba(0,0,0,.34)),
+        url("chowderbowl%20%282%29.jfif") center/cover no-repeat;
+    }
+    .gallery-small.two{
+      background:
+        linear-gradient(180deg, rgba(0,0,0,.08), rgba(0,0,0,.34)),
+        url("download%20%282%29.jfif") center/cover no-repeat;
+    }
+
+    .food-panel{
+      min-height:260px;position:relative;
+      background:
+        linear-gradient(180deg, rgba(0,0,0,.08), rgba(0,0,0,.34)),
+        url("download%20%284%29.jfif") center/cover no-repeat;
+    }
+    .food-panel.alt{
+      background:
+        linear-gradient(180deg, rgba(0,0,0,.08), rgba(0,0,0,.34)),
+        url("download%20%289%29.jfif") center/cover no-repeat;
+    }
+
+    .closeup-card{
+      min-height:230px;position:relative;
+      background:
+        linear-gradient(180deg, rgba(0,0,0,.08), rgba(0,0,0,.34)),
+        url("download%20%285%29.jfif") center/cover no-repeat;
+    }
+    .closeup-card.alt{
+      background:
+        linear-gradient(180deg, rgba(0,0,0,.08), rgba(0,0,0,.34)),
+        url("download%20%288%29.jfif") center/cover no-repeat;
+    }
+
+    .caption{
+      position:absolute;left:16px;right:16px;bottom:16px;
+      background:rgba(7,19,27,.8);border:1px solid rgba(255,255,255,.1);
+      border-radius:18px;padding:14px 16px;backdrop-filter:blur(10px)
+    }
+    .caption strong{display:block;margin-bottom:6px;font-size:15px}
+    .caption span{display:block;color:var(--muted);font-size:13px;line-height:1.5}
+
+    .visit-box{padding:24px}
+    .visit-list{display:grid;gap:12px;margin-top:16px}
+    .visit-item{
+      padding:14px 16px;border-radius:18px;background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.08)
+    }
+    .visit-item strong{
+      display:block;font-size:13px;letter-spacing:.08em;text-transform:uppercase;
+      color:var(--accent);margin-bottom:4px
+    }
+    .visit-item span{color:var(--text);line-height:1.5;font-size:15px}
+
+    .quote{padding:30px}
+    .quote p{margin:0;color:var(--text);font-size:22px;line-height:1.62;letter-spacing:-.02em}
+    .quote small{
+      display:block;margin-top:16px;color:var(--muted);font-size:13px;
+      letter-spacing:.08em;text-transform:uppercase
+    }
+
+    .cta-wrap{padding:24px 0 46px}
+    .cta{
+      padding:32px;border-radius:32px;
+      background:
+        radial-gradient(circle at top left, rgba(124,224,255,.18), transparent 30%),
+        linear-gradient(135deg, rgba(255,255,255,.09), rgba(255,255,255,.05));
+      border:1px solid rgba(255,255,255,.1);box-shadow:var(--shadow);
+      overflow:hidden;position:relative
+    }
+    .cta::after{
+      content:"";position:absolute;inset:auto -60px -60px auto;width:180px;height:180px;
+      background:url("download%20%281%29.jfif") center/contain no-repeat;
+      opacity:.10;filter:saturate(1.2);pointer-events:none
+    }
+    .cta h2{
+      margin:0 0 12px;font-size:clamp(30px, 4vw, 44px);letter-spacing:-.04em;position:relative;z-index:1
+    }
+    .cta p{
+      margin:0;color:var(--muted);max-width:56ch;line-height:1.72;position:relative;z-index:1
+    }
+    .cta-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px;position:relative;z-index:1}
+    .footer{
+      padding:0 0 40px;text-align:center;color:rgba(183,200,211,.74);font-size:13px
+    }
+
+    .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease, transform .7s ease}
+    .reveal.visible{opacity:1;transform:translateY(0)}
+
+    @media (max-width: 980px){
+      .hero-grid,.two-col,.feature-grid,.gallery-grid,.visit-grid,.split-grid,.closeup-strip{
+        grid-template-columns:1fr;
+      }
+      .hero-media{min-height:420px}
+      .signature{grid-template-columns:1fr}
+      .signature-image{
+        border-right:0;border-bottom:1px solid rgba(255,255,255,.08);min-height:250px
+      }
+      .signature-copy{padding:24px}
+    }
+
+    @media (max-width: 720px){
+      .topbar-inner{flex-direction:column;align-items:flex-start}
+      .nav{width:100%;justify-content:flex-start}
+      .hero{padding-top:28px}
+      .hero-copy{padding:24px}
+      .hero-stats{grid-template-columns:1fr}
+      .section-head{flex-direction:column;align-items:flex-start}
+      .quote p{font-size:19px}
+      .cta{padding:24px}
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="shell topbar-inner">
+      <div class="brand">
+        <div class="brand-logo">
+          <img src="download%20%281%29.jfif" alt="Bandon Fish Market logo" />
+        </div>
+        <div>
+          <div class="eyebrow">Welcome Aboard</div>
+          <div class="brand-title">Bandon Fish Market</div>
+        </div>
+      </div>
+
+      <nav class="nav">
+        <a href="#story">Story</a>
+        <a href="#favorites">Favorites</a>
+        <a href="#coast">From the Coast</a>
+        <a href="#visit">Visit</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="shell hero-grid">
+        <div class="hero-copy reveal">
+          <div class="chip">Southern Oregon Coast</div>
+          <h1>Traditional Fish &amp; Chips on the Southern Oregon Coast</h1>
+          <p class="hero-sub">
+            Welcome Aboard. In the little blue building on the waterfront, Bandon Fish Market
+            brings together golden fish and chips, warm chowder, fresh seafood, and the kind
+            of coastal stop people remember long after the meal is gone.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#favorites">Explore the Favorites</a>
+            <a class="btn btn-secondary" href="#visit">Plan Your Stop</a>
+          </div>
+
+          <div class="hero-stats">
+            <div class="mini">
+              <strong>Waterfront charm</strong>
+              <span>A memorable stop in Old Town Bandon with unmistakable coastal character.</span>
+            </div>
+            <div class="mini">
+              <strong>Comfort + seafood</strong>
+              <span>Fish &amp; chips, chowder, shrimp, crab, baskets, and fresh flavors from the coast.</span>
+            </div>
+            <div class="mini">
+              <strong>Worth the stop</strong>
+              <span>Easy to crave, easy to remember, and easy to come back for again.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-media reveal">
+          <div class="hero-overlay">
+            <div class="overlay-card">
+              <h3>The little blue building on the waterfront</h3>
+              <p>
+                Bright, local, and instantly recognizable — the kind of place that feels like part of the coast itself.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="story">
+      <div class="shell">
+        <div class="section-head reveal">
+          <h2>A stop that feels like the coast</h2>
+          <p>
+            From the storefront to the food, everything about Bandon Fish Market feels grounded in place:
+            easygoing, local, and full of classic waterfront flavor.
+          </p>
+        </div>
+
+        <div class="two-col">
+          <article class="card reveal">
+            <div class="card-pad">
+              <h3>Fresh, familiar, and distinctly Bandon</h3>
+              <p>
+                The draw is simple: seafood done in a way that feels satisfying, welcoming, and real.
+                Crispy baskets, rich chowder, and fresh coastal flavor all come together in one memorable stop.
+              </p>
+
+              <ul class="list">
+                <li><span class="dot"></span><span>Classic comfort food with a coastal point of view.</span></li>
+                <li><span class="dot"></span><span>Strong visuals that make the stop feel easy to remember.</span></li>
+                <li><span class="dot"></span><span>A place that feels both local and worth sharing.</span></li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="card media-card reveal">
+            <div class="media-label">Inside the market</div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="favorites">
+      <div class="shell">
+        <div class="section-head reveal">
+          <h2>Signature favorites</h2>
+          <p>
+            Crispy, golden, and instantly recognizable — the kind of meal that tells you exactly what kind of place you’ve found.
+          </p>
+        </div>
+
+        <article class="card signature reveal">
+          <div class="signature-image"></div>
+          <div class="signature-copy">
+            <div class="tag-row">
+              <span class="tag">Fish &amp; Chips</span>
+              <span class="tag">Classic Favorite</span>
+              <span class="tag">Waterfront Comfort</span>
+            </div>
+
+            <h3>The plate people remember</h3>
+            <p>
+              Hot fish and chips set the tone right away: crisp, satisfying, and built for a coastal stop that feels
+              casual in all the right ways.
+            </p>
+
+            <ul class="list">
+              <li><span class="dot"></span><span>Golden, craveable, and easy to picture yourself ordering.</span></li>
+              <li><span class="dot"></span><span>A natural first impression for first-time visitors and regulars alike.</span></li>
+              <li><span class="dot"></span><span>The kind of food that turns a quick stop into part of the trip.</span></li>
+            </ul>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="coast">
+      <div class="shell">
+        <div class="section-head reveal">
+          <h2>From the coast</h2>
+          <p>
+            Chowder, shrimp, baskets, sandwiches, and seafood favorites give the menu range while keeping the waterfront spirit intact.
+          </p>
+        </div>
+
+        <div class="feature-grid">
+          <article class="card feature reveal">
+            <div class="icon">🥣</div>
+            <h3>Warm and familiar</h3>
+            <p>
+              Rich chowder and hot favorites bring comfort to the menu and make the stop feel established, welcoming, and dependable.
+            </p>
+          </article>
+
+          <article class="card feature reveal">
+            <div class="icon">🦀</div>
+            <h3>Seafood in every direction</h3>
+            <p>
+              Shrimp, crab, baskets, and sandwiches create a broader coastal spread instead of a one-note impression.
+            </p>
+          </article>
+
+          <article class="card feature reveal">
+            <div class="icon">📍</div>
+            <h3>Made for the waterfront</h3>
+            <p>
+              The food and the place work together — a stop that feels tied to Old Town Bandon from the first look to the last bite.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="section-head reveal">
+          <h2>Seafood, chowder, and waterfront appetite</h2>
+          <p>
+            A richer spread of imagery helps the page feel less like a menu and more like the full experience of stopping in.
+          </p>
+        </div>
+
+        <div class="gallery-grid">
+          <article class="card gallery-main reveal">
+            <div class="caption">
+              <strong>Seafood sandwich feature</strong>
+              <span>Rich, close-up, and full enough to carry the food side of the experience on its own.</span>
+            </div>
+          </article>
+
+          <div class="gallery-side">
+            <article class="card gallery-small one reveal">
+              <div class="caption">
+                <strong>Chowder comfort</strong>
+                <span>Warm, familiar, and right at home on a windy coastal day.</span>
+              </div>
+            </article>
+
+            <article class="card gallery-small two reveal">
+              <div class="caption">
+                <strong>From the beach to the table</strong>
+                <span>A simple reminder that place matters just as much as the food itself.</span>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="section-head reveal">
+          <h2>More than one reason to stop</h2>
+          <p>
+            Variety gives the page more life and makes the stop feel fuller, easier to imagine, and easier to revisit.
+          </p>
+        </div>
+
+        <div class="split-grid">
+          <article class="card food-panel reveal">
+            <div class="caption">
+              <strong>Seafood baskets and sides</strong>
+              <span>Abundant, satisfying, and built for the kind of meal that feels worth the stop.</span>
+            </div>
+          </article>
+
+          <article class="card food-panel alt reveal">
+            <div class="caption">
+              <strong>Shrimp by the box</strong>
+              <span>Quick-hit seafood appeal that feels casual, coastal, and easy to crave.</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="section-head reveal">
+          <h2>Close-up detail</h2>
+          <p>
+            Crisp texture, golden color, and tight food shots do a lot of the work before a single word needs to.
+          </p>
+        </div>
+
+        <div class="closeup-strip">
+          <article class="card closeup-card reveal">
+            <div class="caption">
+              <strong>Classic fish basket</strong>
+              <span>Direct, simple, and immediately appealing.</span>
+            </div>
+          </article>
+
+          <article class="card closeup-card alt reveal">
+            <div class="caption">
+              <strong>Golden coastal crunch</strong>
+              <span>Texture and color that make quality feel visible from the first glance.</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="visit">
+      <div class="shell">
+        <div class="section-head reveal">
+          <h2>Plan your visit</h2>
+          <p>
+            Easy to find, easy to remember, and right where a good waterfront stop should be.
+          </p>
+        </div>
+
+        <div class="visit-grid">
+          <article class="card visit-box reveal">
+            <h3>Bandon Fish Market</h3>
+            <p>
+              A welcoming stop for fish and chips, chowder, and seafood favorites in Old Town Bandon.
+            </p>
+
+            <div class="visit-list">
+              <div class="visit-item">
+                <strong>Open Daily</strong>
+                <span>11am to 6pm</span>
+              </div>
+
+              <div class="visit-item">
+                <strong>Phone</strong>
+                <span>541-347-4282</span>
+              </div>
+
+              <div class="visit-item">
+                <strong>Address</strong>
+                <span>249 1st St SE, Bandon, OR 97411</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="card reveal">
+            <div class="card-pad">
+              <h3>Worth the waterfront stop</h3>
+              <p>
+                Whether you’re stopping in for a basket, a bowl of chowder, or a seafood fix before heading back out,
+                Bandon Fish Market carries the kind of relaxed coastal appeal that keeps people coming back.
+              </p>
+
+              <ul class="list">
+                <li><span class="dot"></span><span>Memorable storefront and strong sense of place.</span></li>
+                <li><span class="dot"></span><span>Classic seafood favorites that feel easy to return to.</span></li>
+                <li><span class="dot"></span><span>A simple stop that lands like part of the coast experience itself.</span></li>
+              </ul>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <article class="card quote reveal">
+          <p>
+            “A little blue building on the waterfront, a basket in hand, and the Oregon coast just outside — some stops make the place taste even better.”
+          </p>
+          <small>Welcome Aboard</small>
+        </article>
+      </div>
+    </section>
+
+    <section class="cta-wrap">
+      <div class="shell">
+        <div class="cta reveal">
+          <h2>Ready when you are</h2>
+          <p>
+            Explore the favorites, plan your stop, and enjoy one of Bandon’s most memorable waterfront seafood stops.
+          </p>
+
+          <div class="cta-actions">
+            <a class="btn btn-primary" href="#favorites">See the Favorites</a>
+            <a class="btn btn-secondary" href="#visit">Visit Bandon Fish Market</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    Bandon Fish Market • Old Town Bandon • Southern Oregon Coast
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) entry.target.classList.add("visible");
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+  </script>
+</body>
+</html>
